@@ -30,6 +30,11 @@ public class App extends javax.swing.JFrame {
         iniciarRetomarInformacion();
         setLocationRelativeTo(null);
         setResizable(false);
+        
+        /*
+        metodo para que inicializa hilos y asigna valores a los progress bar
+        probarHilos();
+        */
     }
 
     /**
@@ -366,17 +371,17 @@ public class App extends javax.swing.JFrame {
 //                String horaApertura = hora; ->cuando se abra el "juego"
 //                String horaCierre = hora; -> cuando se cierre el "juego"
 
-            //Se setean valores por defecto, agregar a un hilo cada uno...
+                //Se setean valores por defecto, agregar a un hilo cada uno...
 //            **Analizando el Pou original, el hambre y la energía decaen en proporciones
 //            **similares(un poco más el hambre que la energía). Despues de 45 min, el
-//            **hambre y la energíadisminuyen aproximadamente un 10% del total. Mientras que
+//            **hambre y la energía disminuyen aproximadamente un 10% del total. Mientras que
 //            **la salud y la diversión no decaen hasta que el hambre y la salud bajan un 30% aproximadamente.
 //            **El juego inicia con todos los datos a la  mitad
 //            **Minimo de JProgressBar = 0 / Maximo = 1000
-            barEnergia.setValue(Integer.parseInt(energia));
-            barHambre.setValue(Integer.parseInt(hambre));
-            barSalud.setValue(Integer.parseInt(salud));
-            barDiversion.setValue(Integer.parseInt(diversion));
+                barEnergia.setValue(Integer.parseInt(energia));
+                barHambre.setValue(Integer.parseInt(hambre));
+                barSalud.setValue(Integer.parseInt(salud));
+                barDiversion.setValue(Integer.parseInt(diversion));
             } else {
                 //si no, se crea uno con datos por defecto
                 Properties prop = new Properties();
@@ -398,6 +403,108 @@ public class App extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println("error");
+        }
+
+    }
+
+    private void probarHilos() {
+        barEnergia.setValue(500);
+        barHambre.setValue(500);
+        barDiversion.setValue(500);
+        barSalud.setValue(500);
+
+        HiloEnergia hE = new HiloEnergia();
+        hE.start();
+        HiloDiversion hD = new HiloDiversion();
+        hD.start();
+        HiloSalud hS = new HiloSalud();
+        hS.start();
+        HiloHambre hH = new HiloHambre();
+        hH.start();
+
+    }
+
+    private class HiloHambre extends Thread {
+
+        private int cont;
+
+        @Override
+        public void run() {
+            while (true) {
+                cont = 1;
+                barHambre.setValue(barHambre.getValue() - cont);
+                try {
+
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private class HiloEnergia extends Thread {
+
+        private int cont;
+
+        @Override
+        public void run() {
+            while (true) {
+                cont = 1;
+                barEnergia.setValue(barEnergia.getValue() - cont);
+                try {
+
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+    }
+
+    private class HiloSalud extends Thread {
+
+        private int cont;
+
+        @Override
+        public void run() {
+            while (true) {
+                cont = 1;
+                barSalud.setValue(barSalud.getValue() - cont);
+                try {
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+    }
+
+    private class HiloDiversion extends Thread {
+
+        private int cont;
+
+        @Override
+        public void run() {
+            while (true) {
+                cont = 1;
+                barDiversion.setValue(barDiversion.getValue() - cont);
+                try {
+
+                    Thread.sleep(250);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
         }
 
     }
