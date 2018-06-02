@@ -360,13 +360,19 @@ public class App extends javax.swing.JFrame {
                 String hambre = p.getProperty("hambre");
                 String salud = p.getProperty("salud");
                 String diversion = p.getProperty("diversion");
-//                Ver la manera en que se guarde la fecha/hora apertura a la apertura del programa y viceversa
+//                Ver la manera en que se guarde la fecha/hora apertura al abrir el juego y viceversa
 //                String fechaApertura = fecha; ->cuando se abra el "juego"
 //                String fechaCierre = fecha; -> cuando se cierre el "juego"
-//                  String horaApertura = hora; ->cuando se abra el "juego"
-//                  String horaCierre = hora; -> cuando se cierre el "juego"
+//                String horaApertura = hora; ->cuando se abra el "juego"
+//                String horaCierre = hora; -> cuando se cierre el "juego"
 
             //Se setean valores por defecto, agregar a un hilo cada uno...
+//            **Analizando el Pou original, el hambre y la energía decaen en proporciones
+//            **similares(un poco más el hambre que la energía). Despues de 45 min, el
+//            **hambre y la energíadisminuyen aproximadamente un 10% del total. Mientras que
+//            **la salud y la diversión no decaen hasta que el hambre y la salud bajan un 30% aproximadamente.
+//            **El juego inicia con todos los datos a la  mitad
+//            **Minimo de JProgressBar = 0 / Maximo = 1000
             barEnergia.setValue(Integer.parseInt(energia));
             barHambre.setValue(Integer.parseInt(hambre));
             barSalud.setValue(Integer.parseInt(salud));
@@ -375,10 +381,10 @@ public class App extends javax.swing.JFrame {
                 //si no, se crea uno con datos por defecto
                 Properties prop = new Properties();
 
-                prop.put("energia", 1000);
-                prop.put("hambre", 1000);
-                prop.put("salud", 1000);
-                prop.put("diversion", 1000);
+                prop.put("energia", 500);
+                prop.put("hambre", 500);
+                prop.put("salud", 500);
+                prop.put("diversion", 500);
 
                 try {
                     File archivo = new File("config.properties");
