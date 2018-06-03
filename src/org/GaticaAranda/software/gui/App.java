@@ -71,7 +71,15 @@ public class App extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         barEnergia.setMaximum(1000);
 
@@ -278,13 +286,33 @@ public class App extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(pnlMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+            .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         tbdPaneOpciones.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+        try {
+            guardarFechaHoraDeCierre();
+
+            System.exit(0);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            guardarFechaHoraDeApertura();
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -354,13 +382,9 @@ public class App extends javax.swing.JFrame {
 
     private void iniciarRetomarInformacion() throws FileNotFoundException, IOException {
 
-        Calendar c = Calendar.getInstance();
-        String fecha = c.get(c.DATE) + "" + c.get(c.MONTH) + "" + c.get(c.YEAR);
-        String hora = c.get(c.HOUR_OF_DAY) + "" + c.get(c.MINUTE) + "" + c.get(c.SECOND);
-
         Properties p = new Properties();
 
-        File config = new File("config.properties");
+        File config = new File("config.barsProperties");
 
         if (config.exists()) {
             System.out.println("se leyó el archivo");
@@ -369,13 +393,13 @@ public class App extends javax.swing.JFrame {
 
             p.load(fr);
             String energia = p.getProperty("energia");
-            System.out.println("se leyó energía "+energia);
+            System.out.println("se leyó energía " + energia);
             String hambre = p.getProperty("hambre");
-            System.out.println("se leyó hambre "+hambre);
+            System.out.println("se leyó hambre " + hambre);
             String salud = p.getProperty("salud");
-            System.out.println("se leyó salud "+salud);
+            System.out.println("se leyó salud " + salud);
             String diversion = p.getProperty("diversion");
-            System.out.println("se leyó diversion "+diversion);
+            System.out.println("se leyó diversion " + diversion);
 //                Ver la manera en que se guarde la fecha/hora apertura al abrir el juego y viceversa
 //                String fechaApertura = fecha; ->cuando se abra el "juego"
 //                String fechaCierre = fecha; -> cuando se cierre el "juego"
@@ -397,14 +421,11 @@ public class App extends javax.swing.JFrame {
             //si no, se crea uno con datos por defecto
             crearProperties();
 
-            
-            
         }
 
     }
 
     private void probarHilos() {
-        
 
         HiloEnergia hE = new HiloEnergia();
         hE.start();
@@ -426,7 +447,7 @@ public class App extends javax.swing.JFrame {
         prop.put("salud", "500");
         prop.put("diversion", "500");
 
-        File archivo = new File("config.properties");
+        File archivo = new File("config.barsProperties");
         try {
             FileWriter fw = new FileWriter(archivo);
             prop.store(fw, "Estadisticas Pou");
@@ -438,6 +459,58 @@ public class App extends javax.swing.JFrame {
         barSalud.setValue(Integer.parseInt(prop.getProperty("salud")));
         barEnergia.setValue(Integer.parseInt(prop.getProperty("energia")));
 
+    }
+
+    private void guardarFechaHoraDeCierre() throws IOException {
+
+        Calendar c = Calendar.getInstance();
+        String fecha = c.get(c.DATE) + "" + c.get(c.MONTH) + "" + c.get(c.YEAR);
+        String hora = c.get(c.HOUR_OF_DAY) + "" + c.get(c.MINUTE) + "" + c.get(c.SECOND);
+
+        Properties p = new Properties();
+        File configFechaCierre = new File("config.fechaCierre");
+
+        if (configFechaCierre.exists()) {
+            FileWriter fw = new FileWriter(configFechaCierre);
+            p.setProperty("fecha", fecha);
+            p.setProperty("hora", hora);
+
+            p.store(fw, "Fecha cierre Pou");
+            fw.close();
+        } else {
+            FileWriter fw = new FileWriter(configFechaCierre);
+            p.put("fecha", fecha);
+            p.put("hora", hora);
+
+            p.store(fw, "Fecha cierre Pou");
+            fw.close();
+        }
+
+    }
+
+    private void guardarFechaHoraDeApertura() throws IOException {
+        Calendar c = Calendar.getInstance();
+        String fecha = c.get(c.DATE) + "" + c.get(c.MONTH) + "" + c.get(c.YEAR);
+        String hora = c.get(c.HOUR_OF_DAY) + "" + c.get(c.MINUTE) + "" + c.get(c.SECOND);
+
+        Properties p = new Properties();
+        File configFechaApertura = new File("config.fechaApertura");
+
+        if (configFechaApertura.exists()) {
+            FileWriter fw = new FileWriter(configFechaApertura);
+            p.setProperty("fecha", fecha);
+            p.setProperty("hora", hora);
+
+            p.store(fw, "Fecha apertura Pou");
+            fw.close();
+        } else {
+            FileWriter fw = new FileWriter(configFechaApertura);
+            p.put("fecha", fecha);
+            p.put("hora", hora);
+
+            p.store(fw, "Fecha apertura Pou");
+            fw.close();
+        }
     }
 
     private class HiloHambre extends Thread {
@@ -453,7 +526,7 @@ public class App extends javax.swing.JFrame {
                 try {
 
                     Properties p = new Properties();
-                    File config = new File("config.properties");
+                    File config = new File("config.barsProperties");
                     FileWriter fw = new FileWriter(config);
 
                     p.setProperty("hambre", String.valueOf(valorBarraHambre));
@@ -487,9 +560,8 @@ public class App extends javax.swing.JFrame {
                 barEnergia.setValue(valorBarraEnergia);
                 try {
                     Properties p = new Properties();
-                    File config = new File("config.properties");
+                    File config = new File("config.barsProperties");
                     FileWriter fw = new FileWriter(config);
-                   
 
                     p.setProperty("energia", String.valueOf(valorBarraEnergia));
                     p.setProperty("hambre", String.valueOf(barHambre.getValue()));
@@ -521,9 +593,8 @@ public class App extends javax.swing.JFrame {
                 barSalud.setValue(valorBarraSalud);
                 try {
                     Properties p = new Properties();
-                    File config = new File("config.properties");
+                    File config = new File("config.barsProperties");
                     FileWriter fw = new FileWriter(config);
-                    
 
                     p.setProperty("salud", String.valueOf(valorBarraSalud));
                     p.setProperty("energia", String.valueOf(barEnergia.getValue()));
@@ -554,9 +625,8 @@ public class App extends javax.swing.JFrame {
                 barDiversion.setValue(valorBarraDiversion);
                 try {
                     Properties p = new Properties();
-                    File config = new File("config.properties");
+                    File config = new File("config.barsProperties");
                     FileWriter fw = new FileWriter(config);
-                    
 
                     p.setProperty("diversion", String.valueOf(valorBarraDiversion));
                     p.setProperty("energia", String.valueOf(barEnergia.getValue()));
