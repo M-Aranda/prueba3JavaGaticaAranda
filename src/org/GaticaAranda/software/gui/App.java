@@ -11,7 +11,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,11 +29,12 @@ public class App extends javax.swing.JFrame {
         iniciarRetomarInformacion();
         setLocationRelativeTo(null);
         setResizable(false);
-        
+
         /*
         metodo para que inicializa hilos y asigna valores a los progress bar
         probarHilos();
-        */
+         */
+        probarHilos();
     }
 
     /**
@@ -81,12 +81,16 @@ public class App extends javax.swing.JFrame {
 
         barSalud.setMaximum(1000);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Energía:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Divesión:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Hambre:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Salud:");
 
         pnlMascota.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -102,23 +106,25 @@ public class App extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        tbdPaneOpciones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         tglBtnDormirPou.setText("Dormir al Pou");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(156, 156, 156)
                 .addComponent(tglBtnDormirPou)
-                .addGap(128, 128, 128))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addGap(145, 145, 145)
                 .addComponent(tglBtnDormirPou)
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Energía", jPanel5);
@@ -138,14 +144,14 @@ public class App extends javax.swing.JFrame {
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnCorrer, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(btnEjercitar)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnJugar)
                     .addComponent(btnCorrer)
@@ -155,6 +161,7 @@ public class App extends javax.swing.JFrame {
 
         tbdPaneOpciones.addTab("Diversión", jPanel6);
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setText("Elija comida para su pou!");
 
         cmbComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -166,35 +173,35 @@ public class App extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(cmbComida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(cmbComida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel8)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(jButton2)))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Hambre", jPanel4);
 
         cmbPociones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel5.setText("Pociones de salud disponibles para su Pou!");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setText("Pociones de salud disponibles");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setText("Seleccionar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -202,25 +209,25 @@ public class App extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cmbPociones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jLabel5))
-                .addGap(61, 61, 61))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(230, 230, 230))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(cmbPociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Salud", jPanel1);
@@ -271,7 +278,7 @@ public class App extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(pnlMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
         );
 
         tbdPaneOpciones.getAccessibleContext().setAccessibleName("");
@@ -355,63 +362,49 @@ public class App extends javax.swing.JFrame {
 
         File config = new File("config.properties");
 
-        try {
-            if (config.exists()) {
-                //si se encuentra, se leen los datos que contiene
-                FileReader fr = new FileReader(config);
+        if (config.exists()) {
+            System.out.println("se leyó el archivo");
+            //si se encuentra, se leen los datos que contiene
+            FileReader fr = new FileReader(config);
 
-                p.load(fr);
-                String energia = p.getProperty("energia");
-                String hambre = p.getProperty("hambre");
-                String salud = p.getProperty("salud");
-                String diversion = p.getProperty("diversion");
+            p.load(fr);
+            String energia = p.getProperty("energia");
+            System.out.println("se leyó energía "+energia);
+            String hambre = p.getProperty("hambre");
+            System.out.println("se leyó hambre "+hambre);
+            String salud = p.getProperty("salud");
+            System.out.println("se leyó salud "+salud);
+            String diversion = p.getProperty("diversion");
+            System.out.println("se leyó diversion "+diversion);
 //                Ver la manera en que se guarde la fecha/hora apertura al abrir el juego y viceversa
 //                String fechaApertura = fecha; ->cuando se abra el "juego"
 //                String fechaCierre = fecha; -> cuando se cierre el "juego"
 //                String horaApertura = hora; ->cuando se abra el "juego"
 //                String horaCierre = hora; -> cuando se cierre el "juego"
 
-                //Se setean valores por defecto, agregar a un hilo cada uno...
+            //Se setean valores por defecto, agregar a un hilo cada uno...
 //            **Analizando el Pou original, el hambre y la energía decaen en proporciones
 //            **similares(un poco más el hambre que la energía). Despues de 45 min, el
 //            **hambre y la energía disminuyen aproximadamente un 10% del total. Mientras que
 //            **la salud y la diversión no decaen hasta que el hambre y la salud bajan un 30% aproximadamente.
 //            **El juego inicia con todos los datos a la  mitad
 //            **Minimo de JProgressBar = 0 / Maximo = 1000
-                barEnergia.setValue(Integer.parseInt(energia));
-                barHambre.setValue(Integer.parseInt(hambre));
-                barSalud.setValue(Integer.parseInt(salud));
-                barDiversion.setValue(Integer.parseInt(diversion));
-            } else {
-                //si no, se crea uno con datos por defecto
-                Properties prop = new Properties();
+            barEnergia.setValue(Integer.parseInt(energia));
+            barHambre.setValue(Integer.parseInt(hambre));
+            barSalud.setValue(Integer.parseInt(salud));
+            barDiversion.setValue(Integer.parseInt(diversion));
+        } else {
+            //si no, se crea uno con datos por defecto
+            crearProperties();
 
-                prop.put("energia", 500);
-                prop.put("hambre", 500);
-                prop.put("salud", 500);
-                prop.put("diversion", 500);
-
-                try {
-                    File archivo = new File("config.properties");
-                    FileWriter fw = new FileWriter(archivo);
-                    prop.store(fw, "Estadisticas Pou");
-                    fw.close();
-                } catch (IOException ex) {
-
-                }
-
-            }
-        } catch (Exception e) {
-            System.out.println("error");
+            
+            
         }
 
     }
 
     private void probarHilos() {
-        barEnergia.setValue(500);
-        barHambre.setValue(500);
-        barDiversion.setValue(500);
-        barSalud.setValue(500);
+        
 
         HiloEnergia hE = new HiloEnergia();
         hE.start();
@@ -424,6 +417,29 @@ public class App extends javax.swing.JFrame {
 
     }
 
+    private void crearProperties() {
+
+        Properties prop = new Properties();
+
+        prop.put("energia", "500");
+        prop.put("hambre", "500");
+        prop.put("salud", "500");
+        prop.put("diversion", "500");
+
+        File archivo = new File("config.properties");
+        try {
+            FileWriter fw = new FileWriter(archivo);
+            prop.store(fw, "Estadisticas Pou");
+            fw.close();
+        } catch (IOException iOException) {
+        }
+        barDiversion.setValue(Integer.parseInt(prop.getProperty("diversion")));
+        barHambre.setValue(Integer.parseInt(prop.getProperty("hambre")));
+        barSalud.setValue(Integer.parseInt(prop.getProperty("salud")));
+        barEnergia.setValue(Integer.parseInt(prop.getProperty("energia")));
+
+    }
+
     private class HiloHambre extends Thread {
 
         private int cont;
@@ -432,11 +448,24 @@ public class App extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 cont = 1;
-                barHambre.setValue(barHambre.getValue() - cont);
+                int valorBarraHambre = barHambre.getValue() - cont;
+                barHambre.setValue(valorBarraHambre);
                 try {
 
+                    Properties p = new Properties();
+                    File config = new File("config.properties");
+                    FileWriter fw = new FileWriter(config);
+
+                    p.setProperty("hambre", String.valueOf(valorBarraHambre));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
+
                     Thread.sleep(100);
-                } catch (InterruptedException ex) {
+                } catch (IOException | InterruptedException ex) {
 
                 }
 
@@ -454,11 +483,24 @@ public class App extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 cont = 1;
-                barEnergia.setValue(barEnergia.getValue() - cont);
+                int valorBarraEnergia = barEnergia.getValue() - cont;
+                barEnergia.setValue(valorBarraEnergia);
                 try {
+                    Properties p = new Properties();
+                    File config = new File("config.properties");
+                    FileWriter fw = new FileWriter(config);
+                   
+
+                    p.setProperty("energia", String.valueOf(valorBarraEnergia));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
 
                     Thread.sleep(500);
-                } catch (InterruptedException ex) {
+                } catch (IOException | InterruptedException ex) {
 
                 }
 
@@ -475,11 +517,23 @@ public class App extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 cont = 1;
-                barSalud.setValue(barSalud.getValue() - cont);
+                int valorBarraSalud = barSalud.getValue() - cont;
+                barSalud.setValue(valorBarraSalud);
                 try {
+                    Properties p = new Properties();
+                    File config = new File("config.properties");
+                    FileWriter fw = new FileWriter(config);
+                    
 
+                    p.setProperty("salud", String.valueOf(valorBarraSalud));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
                     Thread.sleep(1000);
-                } catch (InterruptedException ex) {
+                } catch (IOException | InterruptedException ex) {
 
                 }
 
@@ -496,11 +550,24 @@ public class App extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 cont = 1;
-                barDiversion.setValue(barDiversion.getValue() - cont);
+                int valorBarraDiversion = barDiversion.getValue() - cont;
+                barDiversion.setValue(valorBarraDiversion);
                 try {
+                    Properties p = new Properties();
+                    File config = new File("config.properties");
+                    FileWriter fw = new FileWriter(config);
+                    
+
+                    p.setProperty("diversion", String.valueOf(valorBarraDiversion));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
 
                     Thread.sleep(250);
-                } catch (InterruptedException ex) {
+                } catch (IOException | InterruptedException ex) {
 
                 }
 
