@@ -1,4 +1,3 @@
-
 package org.GaticaAranda.software.gui;
 
 import java.awt.Color;
@@ -45,6 +44,7 @@ public class App extends javax.swing.JFrame {
         probarHilos();
          */
         iniciarHilos();
+
     }
 
     public void personalizarBarrasDeProgreso() {
@@ -89,11 +89,11 @@ public class App extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cmbComida = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        btnSeleccionarComida = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         cmbPociones = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSeleccionarPocion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -106,6 +106,7 @@ public class App extends javax.swing.JFrame {
         });
 
         barEnergia.setMaximum(1000);
+        barEnergia.setToolTipText("");
 
         barDiversion.setMaximum(1000);
 
@@ -146,17 +147,17 @@ public class App extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(197, Short.MAX_VALUE)
                 .addComponent(tglBtnDormirPou)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(127, 127, 127))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
+                .addGap(159, 159, 159)
                 .addComponent(tglBtnDormirPou)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Energía", jPanel5);
@@ -176,7 +177,7 @@ public class App extends javax.swing.JFrame {
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnCorrer, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(btnEjercitar)
                 .addContainerGap())
         );
@@ -196,9 +197,14 @@ public class App extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setText("Elija comida para su pou!");
 
-        cmbComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comida", "Pollo Asado (+100)", "Pepino (+10)", "Tocino (+30)", "Sopa (+40)", "Cereza (+5)", "Huevo (+25)", "Completo (+50)", "hamburguesa (+40)", "1/4 Pizza (+25)", "Pizza Entera (+100)", "Papas fritas (+30)", "Frambuesa (+5)" }));
 
-        jButton2.setText("Seleccionar");
+        btnSeleccionarComida.setText("Seleccionar");
+        btnSeleccionarComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarComidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -211,8 +217,8 @@ public class App extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(cmbComida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                        .addComponent(btnSeleccionarComida)))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,19 +228,25 @@ public class App extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(btnSeleccionarComida))
                 .addContainerGap(279, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Hambre", jPanel4);
 
-        cmbPociones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPociones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pociones", "Poción pequeña (+250 Salud)", "Poción mediana (+500 Salud)", "Poción Gigante (+1000 Salud)", "Pocion energizante (+500 Energía)", "Pocion Máxima (100% a todos los estados)", "Pocion desenergizante (0% Energía)", "Pocion Hambre(0% Hambre)" }));
+        cmbPociones.setToolTipText("");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("Pociones de salud disponibles");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("Seleccionar");
+        btnSeleccionarPocion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnSeleccionarPocion.setText("Seleccionar");
+        btnSeleccionarPocion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarPocionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,11 +254,11 @@ public class App extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmbPociones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbPociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnSeleccionarPocion))
                     .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -257,9 +269,9 @@ public class App extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(btnSeleccionarPocion)
                     .addComponent(cmbPociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Salud", jPanel1);
@@ -285,7 +297,7 @@ public class App extends javax.swing.JFrame {
                             .addComponent(barDiversion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(pnlMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -338,6 +350,67 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnSeleccionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarComidaActionPerformed
+
+        switch (cmbComida.getSelectedIndex()) {
+           
+            case 1:
+                barHambre.setValue(barHambre.getValue() + 100);
+            case 2:
+                barHambre.setValue(barHambre.getValue() + 10);
+            case 3:
+                barHambre.setValue(barHambre.getValue() + 30);
+            case 4:
+                barHambre.setValue(barHambre.getValue() + 40);
+            case 5:
+                barHambre.setValue(barHambre.getValue() + 5);
+            case 6:
+                barHambre.setValue(barHambre.getValue() + 25);
+            case 7:
+                barHambre.setValue(barHambre.getValue() + 50);
+            case 8:
+                barHambre.setValue(barHambre.getValue() + 40);
+            case 9:
+                barHambre.setValue(barHambre.getValue() + 25);
+            case 10:
+                barHambre.setValue(barHambre.getValue() + 100);
+            case 11:
+                barHambre.setValue(barHambre.getValue() + 30);
+            case 12:
+                barHambre.setValue(barHambre.getValue() + 5);
+              
+                System.out.println();
+          
+        }
+
+    }//GEN-LAST:event_btnSeleccionarComidaActionPerformed
+
+    private void btnSeleccionarPocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPocionActionPerformed
+
+        switch (cmbPociones.getSelectedIndex()) {
+            
+            case 1:
+                barSalud.setValue(barSalud.getValue()+250);
+            case 2:
+                barSalud.setValue(barSalud.getValue()+500);
+            case 3:
+                barSalud.setValue(barSalud.getValue()+1000);
+            case 4:
+                barEnergia.setValue(barEnergia.getValue()+500);
+            case 5:
+                barSalud.setValue(1000);
+                barEnergia.setValue(1000);
+                barHambre.setValue(1000);
+                barDiversion.setValue(1000);
+            case 6:
+                barEnergia.setValue(0);
+            case 7:
+                barHambre.setValue(0);
+        }
+
+
+    }//GEN-LAST:event_btnSeleccionarPocionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -385,10 +458,10 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton btnCorrer;
     private javax.swing.JButton btnEjercitar;
     private javax.swing.JButton btnJugar;
+    private javax.swing.JButton btnSeleccionarComida;
+    private javax.swing.JButton btnSeleccionarPocion;
     private javax.swing.JComboBox<String> cmbComida;
     private javax.swing.JComboBox<String> cmbPociones;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -670,7 +743,6 @@ public class App extends javax.swing.JFrame {
 
     }
 
-    
     //esta clase la necesito para cambiar las barras. Podria ir afuera de App no?
     class GradientPalletProgressBarUI extends BasicProgressBarUI {
 

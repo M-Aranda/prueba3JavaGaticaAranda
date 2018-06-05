@@ -48,7 +48,7 @@
                   <Component id="pnlMascota" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="tbdPaneOpciones" min="-2" pref="416" max="-2" attributes="0"/>
+              <Component id="tbdPaneOpciones" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -88,6 +88,7 @@
     <Component class="javax.swing.JProgressBar" name="barEnergia">
       <Properties>
         <Property name="maximum" type="int" value="1000"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="barDiversion">
@@ -183,19 +184,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="197" max="32767" attributes="0"/>
                       <Component id="tglBtnDormirPou" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="160" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                       <Component id="tglBtnDormirPou" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="192" max="32767" attributes="0"/>
+                      <EmptySpace pref="178" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -225,7 +226,7 @@
                       <Component id="btnJugar" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Component id="btnCorrer" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                       <Component id="btnEjercitar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -282,10 +283,10 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="cmbComida" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSeleccionarComida" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="101" max="32767" attributes="0"/>
+                      <EmptySpace pref="148" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -297,7 +298,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cmbComida" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSeleccionarComida" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="279" max="32767" attributes="0"/>
                   </Group>
@@ -316,11 +317,20 @@
             <Component class="javax.swing.JComboBox" name="cmbComida">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="13">
+                    <StringItem index="0" value="Comida"/>
+                    <StringItem index="1" value="Pollo Asado (+100)"/>
+                    <StringItem index="2" value="Pepino (+10)"/>
+                    <StringItem index="3" value="Tocino (+30)"/>
+                    <StringItem index="4" value="Sopa (+40)"/>
+                    <StringItem index="5" value="Cereza (+5)"/>
+                    <StringItem index="6" value="Huevo (+25)"/>
+                    <StringItem index="7" value="Completo (+50)"/>
+                    <StringItem index="8" value="hamburguesa (+40)"/>
+                    <StringItem index="9" value="1/4 Pizza (+25)"/>
+                    <StringItem index="10" value="Pizza Entera (+100)"/>
+                    <StringItem index="11" value="Papas fritas (+30)"/>
+                    <StringItem index="12" value="Frambuesa (+5)"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -328,10 +338,13 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnSeleccionarComida">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seleccionar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarComidaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -347,15 +360,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="cmbPociones" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cmbPociones" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSeleccionarPocion" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -366,12 +379,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSeleccionarPocion" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbPociones" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="277" max="32767" attributes="0"/>
+                      <EmptySpace pref="284" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -380,13 +393,18 @@
             <Component class="javax.swing.JComboBox" name="cmbPociones">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="8">
+                    <StringItem index="0" value="Pociones"/>
+                    <StringItem index="1" value="Poci&#xf3;n peque&#xf1;a (+250 Salud)"/>
+                    <StringItem index="2" value="Poci&#xf3;n mediana (+500 Salud)"/>
+                    <StringItem index="3" value="Poci&#xf3;n Gigante (+1000 Salud)"/>
+                    <StringItem index="4" value="Pocion energizante (+500 Energ&#xed;a)"/>
+                    <StringItem index="5" value="Pocion M&#xe1;xima (100% a todos los estados)"/>
+                    <StringItem index="6" value="Pocion desenergizante (0% Energ&#xed;a)"/>
+                    <StringItem index="7" value="Pocion Hambre(0% Hambre)"/>
                   </StringArray>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -400,13 +418,16 @@
                 <Property name="text" type="java.lang.String" value="Pociones de salud disponibles"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnSeleccionarPocion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Seleccionar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarPocionActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
