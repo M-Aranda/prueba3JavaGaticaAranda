@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.GaticaAranda.software.gui;
 
 import java.awt.Color;
@@ -674,6 +670,8 @@ public class App extends javax.swing.JFrame {
 
     }
 
+    
+    //esta clase la necesito para cambiar las barras. Podria ir afuera de App no?
     class GradientPalletProgressBarUI extends BasicProgressBarUI {
 
         private final int[] pallet;
