@@ -148,7 +148,7 @@ public class App extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(197, Short.MAX_VALUE)
+                .addContainerGap(239, Short.MAX_VALUE)
                 .addComponent(tglBtnDormirPou)
                 .addGap(127, 127, 127))
         );
@@ -177,7 +177,7 @@ public class App extends javax.swing.JFrame {
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnCorrer, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(btnEjercitar)
                 .addContainerGap())
         );
@@ -197,7 +197,7 @@ public class App extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setText("Elija comida para su pou!");
 
-        cmbComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comida", "Pollo Asado (+100)", "Pepino (+10)", "Tocino (+30)", "Sopa (+40)", "Cereza (+5)", "Huevo (+25)", "Completo (+50)", "hamburguesa (+40)", "1/4 Pizza (+25)", "Pizza Entera (+100)", "Papas fritas (+30)", "Frambuesa (+5)" }));
+        cmbComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comida", "Pollo Asado (+100)", "Pepino Transgenico(+500)", "Tocino (+30)", "Sopa (+40)", "Cereza (+5)", "Huevo (+25)", "Completo (+50)", "hamburguesa (+40)", "1/4 Pizza (+25)", "Pizza Entera (+100)", "Papas fritas (+30)", "Frambuesa (+5)" }));
 
         btnSeleccionarComida.setText("Seleccionar");
         btnSeleccionarComida.addActionListener(new java.awt.event.ActionListener() {
@@ -355,32 +355,41 @@ public class App extends javax.swing.JFrame {
         switch (cmbComida.getSelectedIndex()) {
            
             case 1:
-                barHambre.setValue(barHambre.getValue() + 100);
+                barHambre.setValue(barHambre.getValue()+ 100);
+                break;
             case 2:
-                barHambre.setValue(barHambre.getValue() + 10);
+                barHambre.setValue(barHambre.getValue() + 500);
+                break;
             case 3:
                 barHambre.setValue(barHambre.getValue() + 30);
+                break;
             case 4:
                 barHambre.setValue(barHambre.getValue() + 40);
+                break;
             case 5:
                 barHambre.setValue(barHambre.getValue() + 5);
+                break;
             case 6:
                 barHambre.setValue(barHambre.getValue() + 25);
+                break;
             case 7:
                 barHambre.setValue(barHambre.getValue() + 50);
+                break;
             case 8:
                 barHambre.setValue(barHambre.getValue() + 40);
+                break;
             case 9:
                 barHambre.setValue(barHambre.getValue() + 25);
+                break;
             case 10:
                 barHambre.setValue(barHambre.getValue() + 100);
+                break;
             case 11:
                 barHambre.setValue(barHambre.getValue() + 30);
+                break;
             case 12:
                 barHambre.setValue(barHambre.getValue() + 5);
-              
-                System.out.println();
-          
+                break;
         }
 
     }//GEN-LAST:event_btnSeleccionarComidaActionPerformed
@@ -391,21 +400,28 @@ public class App extends javax.swing.JFrame {
             
             case 1:
                 barSalud.setValue(barSalud.getValue()+250);
+                break;
             case 2:
                 barSalud.setValue(barSalud.getValue()+500);
+                break;
             case 3:
                 barSalud.setValue(barSalud.getValue()+1000);
+                break;
             case 4:
                 barEnergia.setValue(barEnergia.getValue()+500);
+                break;
             case 5:
                 barSalud.setValue(1000);
                 barEnergia.setValue(1000);
                 barHambre.setValue(1000);
                 barDiversion.setValue(1000);
+                break;
             case 6:
                 barEnergia.setValue(0);
+                break;
             case 7:
                 barHambre.setValue(0);
+                break;
         }
 
 
