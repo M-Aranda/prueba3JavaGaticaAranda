@@ -44,7 +44,7 @@ public class App extends javax.swing.JFrame {
         metodo para que inicializa hilos y asigna valores a los progress bar
         probarHilos();
          */
-        probarHilos();
+        iniciarHilos();
     }
 
     public void personalizarBarrasDeProgreso() {
@@ -449,7 +449,7 @@ public class App extends javax.swing.JFrame {
 
     }
 
-    private void probarHilos() {
+    private void iniciarHilos() {
 
         HiloEnergia hE = new HiloEnergia();
         hE.start();
@@ -707,7 +707,7 @@ public class App extends javax.swing.JFrame {
 
         private Color getColorFromPallet(int[] pallet, float x) {
             if (x < 0.0 || x > 1.0) {
-                throw new IllegalArgumentException("Parameter outside of expected range");
+                throw new IllegalArgumentException("Parametro fuera del rango esperado");
             }
             int i = (int) (pallet.length * x);
             int max = pallet.length - 1;
@@ -721,7 +721,7 @@ public class App extends javax.swing.JFrame {
             if (!(g instanceof Graphics2D)) {
                 return;
             }
-            Insets b = barra.getInsets(); // area for border
+            Insets b = barra.getInsets(); // area para el borde
             int barRectWidth = barra.getWidth() - (b.right + b.left);
             int barRectHeight = barra.getHeight() - (b.top + b.bottom);
             if (barRectWidth <= 0 || barRectHeight <= 0) {
@@ -738,8 +738,8 @@ public class App extends javax.swing.JFrame {
                 g.setColor(getColorFromPallet(pallet, x));
                 g.fillRect(b.left, b.top, amountFull, barRectHeight);
 
-            } else { // VERTICAL
-                //...
+            } else { // es VERTICAL
+                //manejar aqui...
             }
             // Deal with possible text painting
             if (barra.isStringPainted()) {
