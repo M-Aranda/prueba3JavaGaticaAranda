@@ -13,7 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +25,10 @@ import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
+import org.joda.time.DateTime;
+import org.joda.time.Seconds;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -38,6 +45,8 @@ public class App extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         personalizarBarrasDeProgreso();
+
+        
 
         /*
         metodo para que inicializa hilos y asigna valores a los progress bar
@@ -353,9 +362,9 @@ public class App extends javax.swing.JFrame {
     private void btnSeleccionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarComidaActionPerformed
 
         switch (cmbComida.getSelectedIndex()) {
-           
+
             case 1:
-                barHambre.setValue(barHambre.getValue()+ 100);
+                barHambre.setValue(barHambre.getValue() + 100);
                 break;
             case 2:
                 barHambre.setValue(barHambre.getValue() + 500);
@@ -397,18 +406,18 @@ public class App extends javax.swing.JFrame {
     private void btnSeleccionarPocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPocionActionPerformed
 
         switch (cmbPociones.getSelectedIndex()) {
-            
+
             case 1:
-                barSalud.setValue(barSalud.getValue()+250);
+                barSalud.setValue(barSalud.getValue() + 250);
                 break;
             case 2:
-                barSalud.setValue(barSalud.getValue()+500);
+                barSalud.setValue(barSalud.getValue() + 500);
                 break;
             case 3:
-                barSalud.setValue(barSalud.getValue()+1000);
+                barSalud.setValue(barSalud.getValue() + 1000);
                 break;
             case 4:
-                barEnergia.setValue(barEnergia.getValue()+500);
+                barEnergia.setValue(barEnergia.getValue() + 500);
                 break;
             case 5:
                 barSalud.setValue(1000);
@@ -530,6 +539,42 @@ public class App extends javax.swing.JFrame {
             barHambre.setValue(Integer.parseInt(hambre));
             barSalud.setValue(Integer.parseInt(salud));
             barDiversion.setValue(Integer.parseInt(diversion));
+
+            Properties fC = new Properties();//se lee fecha y hora
+            File configCierre = new File("config.fechaCierre");
+            FileReader frFC = new FileReader(configCierre);
+            fC.load(frFC);
+            String momentoCierre = fC.getProperty("momento");
+
+            Properties fA = new Properties();//se lee fecha y hora de apertura
+            File configAper = new File("config.fechaApertura");
+            FileReader frFA = new FileReader(configAper);
+            fA.load(frFA);
+            String momentoAper = fA.getProperty("momento");
+
+            DateTime dtC = DateTime.parse(momentoCierre);//pasa string a DateTime
+            DateTime dtA = DateTime.parse(momentoAper);//pasa string a DateTime
+
+            //proximas 6 lineas calculan la difrerencia entre anios, meses, dias, horas, minutos y segundos
+            //para luego agregarla a la suma de segundos en total
+            int diffAnios=(dtC.getYear()-dtA.getYear())*31556952;
+            int diffMeses=(dtC.getMonthOfYear()-dtA.getMonthOfYear())*2629746;
+            int diffDias=(dtC.getDayOfYear()-dtA.getDayOfYear())*86400;
+            int diffHoras=(dtC.getHourOfDay()-dtA.getHourOfDay())*3600;
+            int diffMinutos=(dtC.getMinuteOfDay()-dtA.getMinuteOfDay())*60;
+            int diffSegundos=dtC.getSecondOfMinute()-dtA.getSecondOfMinute();
+            
+            
+            int difTotalEnSegundos=diffAnios+diffMeses+diffDias+diffHoras+diffMinutos+diffSegundos;
+            
+            System.out.println(difTotalEnSegundos);
+
+            int segundosTranscurridos = Seconds.secondsBetween(dtA, dtC).getSeconds();// calcular segundos transcurridos entre las 2 fechas? Use joda
+
+            System.out.println(momentoCierre);
+            System.out.println(momentoAper);
+            System.out.println(segundosTranscurridos);//debiese mostrar algo similiar a difTotalEnSegundos
+
         } else {
             //si no, se crea uno con datos por defecto
             crearProperties();
@@ -577,8 +622,10 @@ public class App extends javax.swing.JFrame {
     private void guardarFechaHoraDeCierre() throws IOException {
 
         Calendar c = Calendar.getInstance();
-        String fecha = c.get(c.DATE) + "" + c.get(c.MONTH) + "" + c.get(c.YEAR);
-        String hora = c.get(c.HOUR_OF_DAY) + "" + c.get(c.MINUTE) + "" + c.get(c.SECOND);
+        String fecha = c.get(c.DATE) + "/" + c.get(c.MONTH) + "/" + c.get(c.YEAR);
+        String hora = c.get(c.HOUR_OF_DAY) + "/" + c.get(c.MINUTE) + "/" + c.get(c.SECOND);
+
+        DateTime d = DateTime.now();
 
         Properties p = new Properties();
         File configFechaCierre = new File("config.fechaCierre");
@@ -588,12 +635,16 @@ public class App extends javax.swing.JFrame {
             p.setProperty("fecha", fecha);
             p.setProperty("hora", hora);
 
+            p.setProperty("momento", d.toString());
+
             p.store(fw, "Fecha cierre Pou");
             fw.close();
         } else {
             FileWriter fw = new FileWriter(configFechaCierre);
             p.put("fecha", fecha);
             p.put("hora", hora);
+
+            p.setProperty("momento", d.toString());
 
             p.store(fw, "Fecha cierre Pou");
             fw.close();
@@ -603,8 +654,10 @@ public class App extends javax.swing.JFrame {
 
     private void guardarFechaHoraDeApertura() throws IOException {
         Calendar c = Calendar.getInstance();
-        String fecha = c.get(c.DATE) + "" + c.get(c.MONTH) + "" + c.get(c.YEAR);
-        String hora = c.get(c.HOUR_OF_DAY) + "" + c.get(c.MINUTE) + "" + c.get(c.SECOND);
+        String fecha = c.get(c.DATE) + "/" + c.get(c.MONTH) + "/" + c.get(c.YEAR);
+        String hora = c.get(c.HOUR_OF_DAY) + "/" + c.get(c.MINUTE) + "/" + c.get(c.SECOND);
+
+        DateTime d = DateTime.now();
 
         Properties p = new Properties();
         File configFechaApertura = new File("config.fechaApertura");
@@ -614,12 +667,16 @@ public class App extends javax.swing.JFrame {
             p.setProperty("fecha", fecha);
             p.setProperty("hora", hora);
 
+            p.setProperty("momento", d.toString());
+
             p.store(fw, "Fecha apertura Pou");
             fw.close();
         } else {
             FileWriter fw = new FileWriter(configFechaApertura);
             p.put("fecha", fecha);
             p.put("hora", hora);
+
+            p.setProperty("momento", d.toString());
 
             p.store(fw, "Fecha apertura Pou");
             fw.close();
