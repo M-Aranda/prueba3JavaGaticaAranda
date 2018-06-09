@@ -553,7 +553,9 @@ public class App extends javax.swing.JFrame {
             String momentoAper = fA.getProperty("momento");
 
             DateTime dtC = DateTime.parse(momentoCierre);//pasa string a DateTime
-            DateTime dtA = DateTime.parse(momentoAper);//pasa string a DateTime
+            
+            DateTime dtA=DateTime.now();   
+//DateTime dtA = DateTime.parse(momentoAper);//pasa string a DateTime
 
             //proximas 6 lineas calculan la difrerencia entre anios, meses, dias, horas, minutos y segundos
             //para luego agregarla a la suma de segundos en total
@@ -567,13 +569,13 @@ public class App extends javax.swing.JFrame {
             
             int difTotalEnSegundos=diffAnios+diffMeses+diffDias+diffHoras+diffMinutos+diffSegundos;
             
-            System.out.println(difTotalEnSegundos);
+            //System.out.println(difTotalEnSegundos);
 
-            int segundosTranscurridos = Seconds.secondsBetween(dtA, dtC).getSeconds();// calcular segundos transcurridos entre las 2 fechas? Use joda
+            int segundosTranscurridos = Seconds.secondsBetween(dtC, dtA).getSeconds();// calcular segundos transcurridos entre las 2 fechas? Use joda
 
             System.out.println(momentoCierre);
             System.out.println(momentoAper);
-            System.out.println(segundosTranscurridos);//debiese mostrar algo similiar a difTotalEnSegundos
+            System.out.println("Han pasado "+segundosTranscurridos+" segundos desde la ultima vez que se uso el SW");//debiese mostrar algo similiar a difTotalEnSegundos
 
         } else {
             //si no, se crea uno con datos por defecto
