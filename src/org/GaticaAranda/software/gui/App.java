@@ -46,12 +46,6 @@ public class App extends javax.swing.JFrame {
         setResizable(false);
         personalizarBarrasDeProgreso();
 
-        
-
-        /*
-        metodo para que inicializa hilos y asigna valores a los progress bar
-        probarHilos();
-         */
         iniciarHilos();
 
     }
@@ -553,29 +547,39 @@ public class App extends javax.swing.JFrame {
             String momentoAper = fA.getProperty("momento");
 
             DateTime dtC = DateTime.parse(momentoCierre);//pasa string a DateTime
-            
-            DateTime dtA=DateTime.now();   
-//DateTime dtA = DateTime.parse(momentoAper);//pasa string a DateTime
+
+            DateTime dtA = DateTime.now();
+            //DateTime dtA = DateTime.parse(momentoAper);//pasa string a DateTime
 
             //proximas 6 lineas calculan la difrerencia entre anios, meses, dias, horas, minutos y segundos
             //para luego agregarla a la suma de segundos en total
-            int diffAnios=(dtC.getYear()-dtA.getYear())*31556952;
-            int diffMeses=(dtC.getMonthOfYear()-dtA.getMonthOfYear())*2629746;
-            int diffDias=(dtC.getDayOfYear()-dtA.getDayOfYear())*86400;
-            int diffHoras=(dtC.getHourOfDay()-dtA.getHourOfDay())*3600;
-            int diffMinutos=(dtC.getMinuteOfDay()-dtA.getMinuteOfDay())*60;
-            int diffSegundos=dtC.getSecondOfMinute()-dtA.getSecondOfMinute();
-            
-            
-            int difTotalEnSegundos=diffAnios+diffMeses+diffDias+diffHoras+diffMinutos+diffSegundos;
-            
-            //System.out.println(difTotalEnSegundos);
+            int diffAnios = (dtC.getYear() - dtA.getYear()) * 31556952;
+            int diffMeses = (dtC.getMonthOfYear() - dtA.getMonthOfYear()) * 2629746;
+            int diffDias = (dtC.getDayOfYear() - dtA.getDayOfYear()) * 86400;
+            int diffHoras = (dtC.getHourOfDay() - dtA.getHourOfDay()) * 3600;
+            int diffMinutos = (dtC.getMinuteOfDay() - dtA.getMinuteOfDay()) * 60;
+            int diffSegundos = dtC.getSecondOfMinute() - dtA.getSecondOfMinute();
 
+            int difTotalEnSegundos = diffAnios + diffMeses + diffDias + diffHoras + diffMinutos + diffSegundos;
+
+            //System.out.println(difTotalEnSegundos);
             int segundosTranscurridos = Seconds.secondsBetween(dtC, dtA).getSeconds();// calcular segundos transcurridos entre las 2 fechas? Use joda
 
             System.out.println(momentoCierre);
             System.out.println(momentoAper);
-            System.out.println("Han pasado "+segundosTranscurridos+" segundos desde la ultima vez que se uso el SW");//debiese mostrar algo similiar a difTotalEnSegundos
+            System.out.println("Han pasado " + segundosTranscurridos + " segundos desde la ultima vez que se uso el SW");//debiese mostrar algo similiar a difTotalEnSegundos
+            System.out.println("Calculando nuevos valores...");
+            
+            
+            int energiaNueva=Integer.parseInt(energia)-(segundosTranscurridos*2);
+            int hambreNueva=Integer.parseInt(hambre)-segundosTranscurridos;
+            int saludNueva=Integer.parseInt(salud)-segundosTranscurridos;
+            int diversionNueva=Integer.parseInt(diversion)-segundosTranscurridos;
+            
+            barEnergia.setValue(energiaNueva);
+            barHambre.setValue(hambreNueva);
+            barSalud.setValue(saludNueva);
+            barDiversion.setValue(diversionNueva);
 
         } else {
             //si no, se crea uno con datos por defecto
@@ -709,7 +713,7 @@ public class App extends javax.swing.JFrame {
                     p.store(fw, "Propiedades Pou");
                     fw.close();
 
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (IOException | InterruptedException ex) {
 
                 }
@@ -727,7 +731,7 @@ public class App extends javax.swing.JFrame {
         @Override
         public void run() {
             while (true) {
-                cont = 1;
+                cont = 2;
                 int valorBarraEnergia = barEnergia.getValue() - cont;
                 barEnergia.setValue(valorBarraEnergia);
                 try {
@@ -743,7 +747,7 @@ public class App extends javax.swing.JFrame {
                     p.store(fw, "Propiedades Pou");
                     fw.close();
 
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (IOException | InterruptedException ex) {
 
                 }
@@ -808,7 +812,7 @@ public class App extends javax.swing.JFrame {
                     p.store(fw, "Propiedades Pou");
                     fw.close();
 
-                    Thread.sleep(250);
+                    Thread.sleep(1000);
                 } catch (IOException | InterruptedException ex) {
 
                 }
