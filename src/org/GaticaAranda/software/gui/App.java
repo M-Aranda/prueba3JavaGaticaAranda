@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -21,6 +20,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -153,31 +153,51 @@ public class App extends javax.swing.JFrame {
         tbdPaneOpciones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         tglBtnDormirPou.setText("Dormir al Pou");
+        tglBtnDormirPou.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglBtnDormirPouActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(239, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(189, 189, 189)
                 .addComponent(tglBtnDormirPou)
-                .addGap(127, 127, 127))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(159, 159, 159)
+                .addGap(158, 158, 158)
                 .addComponent(tglBtnDormirPou)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Energía", jPanel5);
 
         btnJugar.setText("Jugar");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
 
         btnCorrer.setText("Correr");
+        btnCorrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorrerActionPerformed(evt);
+            }
+        });
 
         btnEjercitar.setText("Ejercitar");
+        btnEjercitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjercitarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -186,16 +206,16 @@ public class App extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(92, 92, 92)
                 .addComponent(btnCorrer, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(btnEjercitar)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+                .addContainerGap(160, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnJugar)
                     .addComponent(btnCorrer)
@@ -387,50 +407,53 @@ public class App extends javax.swing.JFrame {
 
     private void btnSeleccionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarComidaActionPerformed
 
-        switch (cmbComida.getSelectedIndex()) {
+        if (barHambre.getValue() == 10000) {
+            JOptionPane.showMessageDialog(null, "pou no tiene hambre!, pero desearia poder comer más :'(");
+        } else {
+            switch (cmbComida.getSelectedIndex()) {
 
-            case 1:
-                barHambre.setValue(barHambre.getValue() + 1000);
-                break;
-            case 2:
-                barHambre.setValue(barHambre.getValue() + 5000);
-                break;
-            case 3:
-                barHambre.setValue(barHambre.getValue() + 300);
-                break;
-            case 4:
-                barHambre.setValue(barHambre.getValue() + 400);
-                break;
-            case 5:
-                barHambre.setValue(barHambre.getValue() + 50);
-                break;
-            case 6:
-                barHambre.setValue(barHambre.getValue() + 250);
-                break;
-            case 7:
-                barHambre.setValue(barHambre.getValue() + 500);
-                break;
-            case 8:
-                barHambre.setValue(barHambre.getValue() + 400);
-                break;
-            case 9:
-                barHambre.setValue(barHambre.getValue() + 250);
-                break;
-            case 10:
-                barHambre.setValue(barHambre.getValue() + 1000);
-                break;
-            case 11:
-                barHambre.setValue(barHambre.getValue() + 300);
-                break;
-            case 12:
-                barHambre.setValue(barHambre.getValue() + 50);
-                break;
+                case 1:
+                    barHambre.setValue(barHambre.getValue() + 1000);
+                    break;
+                case 2:
+                    barHambre.setValue(barHambre.getValue() + 5000);
+                    break;
+                case 3:
+                    barHambre.setValue(barHambre.getValue() + 300);
+                    break;
+                case 4:
+                    barHambre.setValue(barHambre.getValue() + 400);
+                    break;
+                case 5:
+                    barHambre.setValue(barHambre.getValue() + 50);
+                    break;
+                case 6:
+                    barHambre.setValue(barHambre.getValue() + 250);
+                    break;
+                case 7:
+                    barHambre.setValue(barHambre.getValue() + 500);
+                    break;
+                case 8:
+                    barHambre.setValue(barHambre.getValue() + 400);
+                    break;
+                case 9:
+                    barHambre.setValue(barHambre.getValue() + 250);
+                    break;
+                case 10:
+                    barHambre.setValue(barHambre.getValue() + 1000);
+                    break;
+                case 11:
+                    barHambre.setValue(barHambre.getValue() + 300);
+                    break;
+                case 12:
+                    barHambre.setValue(barHambre.getValue() + 50);
+                    break;
+            }
         }
 
     }//GEN-LAST:event_btnSeleccionarComidaActionPerformed
 
     private void btnSeleccionarPocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarPocionActionPerformed
-
         switch (cmbPociones.getSelectedIndex()) {
 
             case 1:
@@ -458,8 +481,6 @@ public class App extends javax.swing.JFrame {
                 barHambre.setValue(0);
                 break;
         }
-
-
     }//GEN-LAST:event_btnSeleccionarPocionActionPerformed
 
     private void btnResENerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResENerActionPerformed
@@ -469,6 +490,61 @@ public class App extends javax.swing.JFrame {
     private void btnDetenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerActionPerformed
         hE.detener();
     }//GEN-LAST:event_btnDetenerActionPerformed
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        //jugar aumenta la diversion del pou pero disminuye su energia
+
+        int valorActualBarDiversion = barDiversion.getValue();
+        int valorActualBarEnergia = barEnergia.getValue();
+
+        if (!(barEnergia.getValue() <= 0)) {
+            barDiversion.setValue(valorActualBarDiversion + 300);
+            barEnergia.setValue(valorActualBarEnergia - 150);
+        } else {
+            JOptionPane.showMessageDialog(null, "Pou no tiene energía, no puede jugar más!");
+        }
+
+
+    }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnCorrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorrerActionPerformed
+        //correr aumenta la diversion pero baja el hambre y la energía
+        int valorActualBarDiversion = barDiversion.getValue();
+        int valorActualBarHambre = barHambre.getValue();
+        int valorActualBarEnergia = barEnergia.getValue();
+
+        if (!(barHambre.getValue() <= 0) && !(barEnergia.getValue() <= 0)) {
+            barDiversion.setValue(valorActualBarDiversion + 150);
+            barHambre.setValue(valorActualBarHambre - 100);
+            barEnergia.setValue(valorActualBarEnergia - 200);
+        } else {
+            JOptionPane.showMessageDialog(null, "El pou no tiene energía o tiene mucha hambre!, No puede correr más!");
+        }
+
+
+    }//GEN-LAST:event_btnCorrerActionPerformed
+
+    private void btnEjercitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjercitarActionPerformed
+        //ejercitar disminuye mucho la energía y el hambre, pero la diversion sube considerablemente
+        int valorActualBarDiversion = barDiversion.getValue();
+        int valorActualBarHambre = barHambre.getValue();
+        int valorActualBarEnergia = barEnergia.getValue();
+
+        if (!(valorActualBarEnergia <= 0) && !(valorActualBarHambre <= 0)) {
+            barDiversion.setValue(valorActualBarDiversion + 1000);
+            barHambre.setValue(valorActualBarHambre - 600);
+            barEnergia.setValue(valorActualBarEnergia - 700);
+        } else {
+            JOptionPane.showMessageDialog(null, "El pou no tiene energía o tiene mucha hambre!, No puede ejercitarse más!");
+        }
+
+    }//GEN-LAST:event_btnEjercitarActionPerformed
+
+    private void tglBtnDormirPouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglBtnDormirPouActionPerformed
+
+        
+        
+    }//GEN-LAST:event_tglBtnDormirPouActionPerformed
 
     /**
      * @param args the command line arguments
