@@ -87,23 +87,23 @@
   <SubComponents>
     <Component class="javax.swing.JProgressBar" name="barEnergia">
       <Properties>
-        <Property name="maximum" type="int" value="1000"/>
+        <Property name="maximum" type="int" value="10000"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="barDiversion">
       <Properties>
-        <Property name="maximum" type="int" value="1000"/>
+        <Property name="maximum" type="int" value="10000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="barHambre">
       <Properties>
-        <Property name="maximum" type="int" value="1000"/>
+        <Property name="maximum" type="int" value="10000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JProgressBar" name="barSalud">
       <Properties>
-        <Property name="maximum" type="int" value="1000"/>
+        <Property name="maximum" type="int" value="10000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

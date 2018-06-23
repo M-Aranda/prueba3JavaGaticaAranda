@@ -108,14 +108,14 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        barEnergia.setMaximum(1000);
+        barEnergia.setMaximum(10000);
         barEnergia.setToolTipText("");
 
-        barDiversion.setMaximum(1000);
+        barDiversion.setMaximum(10000);
 
-        barHambre.setMaximum(1000);
+        barHambre.setMaximum(10000);
 
-        barSalud.setMaximum(1000);
+        barSalud.setMaximum(10000);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Energía:");
@@ -358,40 +358,40 @@ public class App extends javax.swing.JFrame {
         switch (cmbComida.getSelectedIndex()) {
 
             case 1:
-                barHambre.setValue(barHambre.getValue() + 100);
+                barHambre.setValue(barHambre.getValue() + 1000);
                 break;
             case 2:
-                barHambre.setValue(barHambre.getValue() + 500);
+                barHambre.setValue(barHambre.getValue() + 5000);
                 break;
             case 3:
-                barHambre.setValue(barHambre.getValue() + 30);
+                barHambre.setValue(barHambre.getValue() + 300);
                 break;
             case 4:
-                barHambre.setValue(barHambre.getValue() + 40);
+                barHambre.setValue(barHambre.getValue() + 400);
                 break;
             case 5:
-                barHambre.setValue(barHambre.getValue() + 5);
-                break;
-            case 6:
-                barHambre.setValue(barHambre.getValue() + 25);
-                break;
-            case 7:
                 barHambre.setValue(barHambre.getValue() + 50);
                 break;
+            case 6:
+                barHambre.setValue(barHambre.getValue() + 250);
+                break;
+            case 7:
+                barHambre.setValue(barHambre.getValue() + 500);
+                break;
             case 8:
-                barHambre.setValue(barHambre.getValue() + 40);
+                barHambre.setValue(barHambre.getValue() + 400);
                 break;
             case 9:
-                barHambre.setValue(barHambre.getValue() + 25);
+                barHambre.setValue(barHambre.getValue() + 250);
                 break;
             case 10:
-                barHambre.setValue(barHambre.getValue() + 100);
+                barHambre.setValue(barHambre.getValue() + 1000);
                 break;
             case 11:
-                barHambre.setValue(barHambre.getValue() + 30);
+                barHambre.setValue(barHambre.getValue() + 300);
                 break;
             case 12:
-                barHambre.setValue(barHambre.getValue() + 5);
+                barHambre.setValue(barHambre.getValue() + 50);
                 break;
         }
 
@@ -402,22 +402,22 @@ public class App extends javax.swing.JFrame {
         switch (cmbPociones.getSelectedIndex()) {
 
             case 1:
-                barSalud.setValue(barSalud.getValue() + 250);
+                barSalud.setValue(barSalud.getValue() + 2500);
                 break;
             case 2:
-                barSalud.setValue(barSalud.getValue() + 500);
+                barSalud.setValue(barSalud.getValue() + 5000);
                 break;
             case 3:
-                barSalud.setValue(barSalud.getValue() + 1000);
+                barSalud.setValue(barSalud.getValue() + 10000);
                 break;
             case 4:
-                barEnergia.setValue(barEnergia.getValue() + 500);
+                barEnergia.setValue(barEnergia.getValue() + 5000);
                 break;
             case 5:
-                barSalud.setValue(1000);
-                barEnergia.setValue(1000);
-                barHambre.setValue(1000);
-                barDiversion.setValue(1000);
+                barSalud.setValue(10000);
+                barEnergia.setValue(10000);
+                barHambre.setValue(10000);
+                barDiversion.setValue(10000);
                 break;
             case 6:
                 barEnergia.setValue(0);
@@ -563,12 +563,14 @@ public class App extends javax.swing.JFrame {
             int difTotalEnSegundos = diffAnios + diffMeses + diffDias + diffHoras + diffMinutos + diffSegundos;
 
             //System.out.println(difTotalEnSegundos);
-            int segundosTranscurridos = Seconds.secondsBetween(dtC, dtA).getSeconds();// calcular segundos transcurridos entre las 2 fechas? Use joda
+            int segundosTranscurridos = Seconds.secondsBetween(dtC, dtA).getSeconds();// calcular segundos transcurridos entre las 2 fechas. Use joda
 
             System.out.println(momentoCierre);
             System.out.println(momentoAper);
             System.out.println("Han pasado " + segundosTranscurridos + " segundos desde la ultima vez que se uso el SW");//debiese mostrar algo similiar a difTotalEnSegundos
             System.out.println("Calculando nuevos valores...");
+            
+
             
             
             int energiaNueva=Integer.parseInt(energia)-(segundosTranscurridos*2);
@@ -576,10 +578,19 @@ public class App extends javax.swing.JFrame {
             int saludNueva=Integer.parseInt(salud)-segundosTranscurridos;
             int diversionNueva=Integer.parseInt(diversion)-segundosTranscurridos;
             
+            
+            System.out.println("La energia nueva es:"+energiaNueva);
+            System.out.println("El hambre nueva es:"+hambreNueva);
+            System.out.println("La salud nueva es:"+saludNueva);
+            System.out.println("La diversion nueva es:"+diversionNueva);
+            
             barEnergia.setValue(energiaNueva);
             barHambre.setValue(hambreNueva);
             barSalud.setValue(saludNueva);
             barDiversion.setValue(diversionNueva);
+            
+            
+            
 
         } else {
             //si no, se crea uno con datos por defecto
@@ -606,10 +617,10 @@ public class App extends javax.swing.JFrame {
 
         Properties prop = new Properties();
 
-        prop.put("energia", "500");
-        prop.put("hambre", "500");
-        prop.put("salud", "500");
-        prop.put("diversion", "500");
+        prop.put("energia", "5000");
+        prop.put("hambre", "5000");
+        prop.put("salud", "5000");
+        prop.put("diversion", "5000");
 
         File archivo = new File("config.barsProperties");
         try {
