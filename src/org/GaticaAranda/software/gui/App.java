@@ -36,11 +36,21 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class App extends javax.swing.JFrame {
 
-    private HiloEnergia hE;
-    private HiloDiversion hD;
-    private HiloSalud hS;
-    private HiloHambre hH;
+    private HiloEnergiaNormal hEN;
+    private HiloDiversionNormal hDN;
+    private HiloSaludNormal hSN;
+    private HiloHambreNormal hHN;
     private static final Object lock = new Object();
+    private HiloEnergiaRapida hER;
+    private HiloDiversionRapida hDR;
+    private HiloSaludRapida hSR;
+    private HiloHambreRapida hHR;
+    private boolean pouDormido;
+    private boolean tiempoNormal;
+    private int minutosADormir;
+
+    private static final Object cerrojo = new Object();
+    private HiloContadorDeSegundosDormido cuentaSegundos;
 
     /**
      * Creates new form App
@@ -53,6 +63,10 @@ public class App extends javax.swing.JFrame {
         setResizable(false);
         personalizarBarrasDeProgreso();
         iniciarHilos();
+        detenerHilosRapidos();
+        rbtTiempoNormal.setSelected(true);
+        pouDormido = false;
+        tiempoNormal = true;
 
     }
 
@@ -79,6 +93,7 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rbtgTiempos = new javax.swing.ButtonGroup();
         barEnergia = new javax.swing.JProgressBar();
         barDiversion = new javax.swing.JProgressBar();
         barHambre = new javax.swing.JProgressBar();
@@ -91,6 +106,8 @@ public class App extends javax.swing.JFrame {
         tbdPaneOpciones = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         tglBtnDormirPou = new javax.swing.JToggleButton();
+        spnMinutosADormir = new javax.swing.JSpinner();
+        lblMinutosAdormir = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         btnJugar = new javax.swing.JButton();
         btnCorrer = new javax.swing.JButton();
@@ -103,8 +120,8 @@ public class App extends javax.swing.JFrame {
         cmbPociones = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         btnSeleccionarPocion = new javax.swing.JButton();
-        btnResENer = new javax.swing.JButton();
-        btnDetener = new javax.swing.JButton();
+        rbtTiempoRapido = new javax.swing.JRadioButton();
+        rbtTiempoNormal = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -159,6 +176,10 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        spnMinutosADormir.setModel(new javax.swing.SpinnerNumberModel(10, 10, 480, 1));
+
+        lblMinutosAdormir.setText("Minutos a dormir");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -166,13 +187,20 @@ public class App extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(189, 189, 189)
                 .addComponent(tglBtnDormirPou)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(spnMinutosADormir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblMinutosAdormir)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(158, 158, 158)
-                .addComponent(tglBtnDormirPou)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tglBtnDormirPou)
+                    .addComponent(spnMinutosADormir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMinutosAdormir))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
 
@@ -208,7 +236,7 @@ public class App extends javax.swing.JFrame {
                 .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92)
                 .addComponent(btnCorrer, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(btnEjercitar)
                 .addContainerGap())
         );
@@ -249,7 +277,7 @@ public class App extends javax.swing.JFrame {
                         .addComponent(cmbComida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSeleccionarComida)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,17 +335,19 @@ public class App extends javax.swing.JFrame {
 
         tbdPaneOpciones.addTab("Salud", jPanel1);
 
-        btnResENer.setText("ResumirEnergia");
-        btnResENer.addActionListener(new java.awt.event.ActionListener() {
+        rbtgTiempos.add(rbtTiempoRapido);
+        rbtTiempoRapido.setText("Tiempo rapido");
+        rbtTiempoRapido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResENerActionPerformed(evt);
+                rbtTiempoRapidoActionPerformed(evt);
             }
         });
 
-        btnDetener.setText("Detener");
-        btnDetener.addActionListener(new java.awt.event.ActionListener() {
+        rbtgTiempos.add(rbtTiempoNormal);
+        rbtTiempoNormal.setText("Tiempo normal");
+        rbtTiempoNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetenerActionPerformed(evt);
+                rbtTiempoNormalActionPerformed(evt);
             }
         });
 
@@ -341,12 +371,12 @@ public class App extends javax.swing.JFrame {
                             .addComponent(barSalud, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(barDiversion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(pnlMascota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(btnDetener)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnResENer)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rbtTiempoNormal)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtTiempoRapido)
+                        .addGap(85, 85, 85)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbdPaneOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -370,10 +400,10 @@ public class App extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(barDiversion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnResENer)
-                    .addComponent(btnDetener))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtTiempoRapido)
+                    .addComponent(rbtTiempoNormal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -483,14 +513,6 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSeleccionarPocionActionPerformed
 
-    private void btnResENerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResENerActionPerformed
-        hE.resumir();
-    }//GEN-LAST:event_btnResENerActionPerformed
-
-    private void btnDetenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerActionPerformed
-        hE.detener();
-    }//GEN-LAST:event_btnDetenerActionPerformed
-
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         //jugar aumenta la diversion del pou pero disminuye su energia
 
@@ -541,10 +563,32 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEjercitarActionPerformed
 
     private void tglBtnDormirPouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglBtnDormirPouActionPerformed
+        try {
+            minutosADormir = Integer.parseInt(String.valueOf(spnMinutosADormir.getValue()));
+            pouDormido = true;
+            cuentaSegundos.resumir();
 
-        
-        
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Debe seleccionar un numero entero entre 10 y 480");
+
+        }
+
+
     }//GEN-LAST:event_tglBtnDormirPouActionPerformed
+
+    private void rbtTiempoRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTiempoRapidoActionPerformed
+        detenerHilosNormales();
+        reanudarHilosRapidos();
+        tiempoNormal = false;
+
+
+    }//GEN-LAST:event_rbtTiempoRapidoActionPerformed
+
+    private void rbtTiempoNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTiempoNormalActionPerformed
+        detenerHilosRapidos();
+        reanudarHilosNormales();
+        tiempoNormal = true;
+    }//GEN-LAST:event_rbtTiempoNormalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -591,10 +635,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JProgressBar barHambre;
     private javax.swing.JProgressBar barSalud;
     private javax.swing.JButton btnCorrer;
-    private javax.swing.JButton btnDetener;
     private javax.swing.JButton btnEjercitar;
     private javax.swing.JButton btnJugar;
-    private javax.swing.JButton btnResENer;
     private javax.swing.JButton btnSeleccionarComida;
     private javax.swing.JButton btnSeleccionarPocion;
     private javax.swing.JComboBox<String> cmbComida;
@@ -609,7 +651,12 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel lblMinutosAdormir;
     private javax.swing.JPanel pnlMascota;
+    private javax.swing.JRadioButton rbtTiempoNormal;
+    private javax.swing.JRadioButton rbtTiempoRapido;
+    private javax.swing.ButtonGroup rbtgTiempos;
+    private javax.swing.JSpinner spnMinutosADormir;
     private javax.swing.JTabbedPane tbdPaneOpciones;
     private javax.swing.JToggleButton tglBtnDormirPou;
     // End of variables declaration//GEN-END:variables
@@ -713,16 +760,57 @@ public class App extends javax.swing.JFrame {
 
     private void iniciarHilos() {
 
-        hE = new HiloEnergia();
-        hD = new HiloDiversion();
-        hS = new HiloSalud();
-        hH = new HiloHambre();
+        hEN = new HiloEnergiaNormal();
+        hDN = new HiloDiversionNormal();
+        hSN = new HiloSaludNormal();
+        hHN = new HiloHambreNormal();
 
-        hE.start();
-        hD.start();
-        hS.start();
-        hH.start();
+        hER = new HiloEnergiaRapida();
+        hDR = new HiloDiversionRapida();
+        hSR = new HiloSaludRapida();
+        hHR = new HiloHambreRapida();
 
+        hEN.start();
+        hDN.start();
+        hSN.start();
+        hHN.start();
+
+        hER.start();
+        hDR.start();
+        hSR.start();
+        hHR.start();
+
+        cuentaSegundos = new HiloContadorDeSegundosDormido();
+        cuentaSegundos.start();
+        cuentaSegundos.detener();
+    }
+
+    private void detenerHilosRapidos() {
+        hER.detener();
+        hDR.detener();
+        hSR.detener();
+        hHR.detener();
+    }
+
+    private void reanudarHilosRapidos() {
+        hER.resumir();
+        hDR.resumir();
+        hSR.resumir();
+        hHR.resumir();
+    }
+
+    private void detenerHilosNormales() {
+        hEN.detener();
+        hDN.detener();
+        hSN.detener();
+        hHN.detener();
+    }
+
+    private void reanudarHilosNormales() {
+        hEN.resumir();
+        hDN.resumir();
+        hSN.resumir();
+        hHN.resumir();
     }
 
     private void crearProperties() {
@@ -812,7 +900,64 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    private class HiloEnergia extends Thread {
+    private class HiloContadorDeSegundosDormido extends Thread {
+
+        private int cont;
+        private boolean detenido;
+
+        @Override
+        public void run() {
+            cont=0;
+            while (true) {
+                if ((cont) > (minutosADormir*60)) {
+                    pouDormido = false;
+                    cont = 0;
+                    detenido = true;
+                    JOptionPane.showMessageDialog(null, "Su pou a despertado");
+                }
+
+                synchronized (cerrojo) {
+                    if (detenido == true) {
+                        try {
+                            cerrojo.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                }
+
+                try {
+                    if (tiempoNormal) {
+                        Thread.sleep(1000);
+                        cont++;
+                    } else if (!tiempoNormal) {
+                        Thread.sleep(100);
+                        cont++;
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (cerrojo) {
+                detenido = false;
+                cerrojo.notifyAll();
+            }
+
+        }
+    }
+
+    private class HiloEnergiaNormal extends Thread {
 
         private int cont;
         private boolean detenido;
@@ -831,6 +976,11 @@ public class App extends javax.swing.JFrame {
                 }
 
                 cont = 2;
+
+                if (pouDormido) {
+                    cont = -2;
+                }
+
                 int valorBarraEnergia = barEnergia.getValue() - cont;
                 barEnergia.setValue(valorBarraEnergia);
 
@@ -871,7 +1021,7 @@ public class App extends javax.swing.JFrame {
 
     }
 
-    private class HiloHambre extends Thread {
+    private class HiloHambreNormal extends Thread {
 
         private int cont;
         private boolean detenido;
@@ -931,7 +1081,7 @@ public class App extends javax.swing.JFrame {
 
     }
 
-    private class HiloSalud extends Thread {
+    private class HiloSaludNormal extends Thread {
 
         private int cont;
         private boolean detenido;
@@ -987,7 +1137,7 @@ public class App extends javax.swing.JFrame {
 
     }
 
-    private class HiloDiversion extends Thread {
+    private class HiloDiversionNormal extends Thread {
 
         private int cont;
         private boolean detenido;
@@ -1005,6 +1155,243 @@ public class App extends javax.swing.JFrame {
                     }
                 }
                 cont = 1;
+
+                int valorBarraDiversion = barDiversion.getValue() - cont;
+                barDiversion.setValue(valorBarraDiversion);
+                try {
+                    Properties p = new Properties();
+                    File config = new File("config.barsProperties");
+                    FileWriter fw = new FileWriter(config);
+
+                    p.setProperty("diversion", String.valueOf(valorBarraDiversion));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
+
+                    Thread.sleep(1000);
+                } catch (IOException | InterruptedException ex) {
+
+                }
+
+            }
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (lock) {
+                detenido = false;
+                lock.notifyAll();
+            }
+
+        }
+
+    }
+
+    private class HiloEnergiaRapida extends Thread {
+
+        private int cont;
+        private boolean detenido;
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (lock) {
+                    if (detenido == true) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+
+                cont = 200;
+
+                if (pouDormido) {
+                    cont = -200;
+                }
+
+                int valorBarraEnergia = barEnergia.getValue() - cont;
+                barEnergia.setValue(valorBarraEnergia);
+
+                try {
+                    Properties p = new Properties();
+                    File config = new File("config.barsProperties");
+                    FileWriter fw = new FileWriter(config);
+
+                    p.setProperty("energia", String.valueOf(valorBarraEnergia));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
+
+                    Thread.sleep(1000);
+                } catch (IOException | InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (lock) {
+                detenido = false;
+                lock.notifyAll();
+            }
+
+        }
+
+    }
+
+    private class HiloHambreRapida extends Thread {
+
+        private int cont;
+        private boolean detenido;
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (lock) {
+                    if (detenido == true) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                cont = 100;
+                int valorBarraHambre = barHambre.getValue() - cont;
+                barHambre.setValue(valorBarraHambre);
+
+                try {
+
+                    Properties p = new Properties();
+                    File config = new File("config.barsProperties");
+                    FileWriter fw = new FileWriter(config);
+
+                    p.setProperty("hambre", String.valueOf(valorBarraHambre));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("salud", String.valueOf(barSalud.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
+
+                    Thread.sleep(1000);
+
+                } catch (IOException | InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (lock) {
+                detenido = false;
+                lock.notifyAll();
+            }
+
+        }
+
+    }
+
+    private class HiloSaludRapida extends Thread {
+
+        private int cont;
+        private boolean detenido;
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (lock) {
+                    if (detenido == true) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                cont = 100;
+                int valorBarraSalud = barSalud.getValue() - cont;
+                barSalud.setValue(valorBarraSalud);
+                try {
+                    Properties p = new Properties();
+                    File config = new File("config.barsProperties");
+                    FileWriter fw = new FileWriter(config);
+
+                    p.setProperty("salud", String.valueOf(valorBarraSalud));
+                    p.setProperty("energia", String.valueOf(barEnergia.getValue()));
+                    p.setProperty("hambre", String.valueOf(barHambre.getValue()));
+                    p.setProperty("diversion", String.valueOf(barDiversion.getValue()));
+
+                    p.store(fw, "Propiedades Pou");
+                    fw.close();
+                    Thread.sleep(1000);
+                } catch (IOException | InterruptedException ex) {
+
+                }
+
+            }
+
+        }
+
+        public void detener() {
+            detenido = true;
+        }
+
+        public void resumir() {
+
+            synchronized (lock) {
+                detenido = false;
+                lock.notifyAll();
+            }
+
+        }
+
+    }
+
+    private class HiloDiversionRapida extends Thread {
+
+        private int cont;
+        private boolean detenido;
+
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (lock) {
+                    if (detenido == true) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                cont = 100;
                 int valorBarraDiversion = barDiversion.getValue() - cont;
                 barDiversion.setValue(valorBarraDiversion);
                 try {

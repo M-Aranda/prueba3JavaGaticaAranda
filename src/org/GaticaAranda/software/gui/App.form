@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="rbtgTiempos">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
   </Properties>
@@ -46,12 +50,12 @@
                       </Group>
                   </Group>
                   <Component id="pnlMascota" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="btnDetener" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="btnResENer" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="rbtTiempoNormal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rbtTiempoRapido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -83,10 +87,10 @@
                   <Component id="barDiversion" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnResENer" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDetener" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="rbtTiempoRapido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rbtTiempoNormal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="pnlMascota" min="-2" max="-2" attributes="0"/>
@@ -199,7 +203,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
                       <Component id="tglBtnDormirPou" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="200" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="spnMinutosADormir" min="-2" pref="68" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblMinutosAdormir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="70" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -207,7 +215,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                      <Component id="tglBtnDormirPou" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="tglBtnDormirPou" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnMinutosADormir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblMinutosAdormir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="186" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -221,6 +233,18 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tglBtnDormirPouActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="spnMinutosADormir">
+              <Properties>
+                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                  <SpinnerModel initial="10" maximum="480" minimum="10" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblMinutosAdormir">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Minutos a dormir"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -241,7 +265,7 @@
                       <Component id="btnJugar" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       <Component id="btnCorrer" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                      <EmptySpace pref="154" max="32767" attributes="0"/>
                       <Component id="btnEjercitar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -310,7 +334,7 @@
                               <Component id="btnSeleccionarComida" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="148" max="32767" attributes="0"/>
+                      <EmptySpace pref="219" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -457,20 +481,26 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnResENer">
+    <Component class="javax.swing.JRadioButton" name="rbtTiempoRapido">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ResumirEnergia"/>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="rbtgTiempos"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Tiempo rapido"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResENerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtTiempoRapidoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDetener">
+    <Component class="javax.swing.JRadioButton" name="rbtTiempoNormal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Detener"/>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="rbtgTiempos"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Tiempo normal"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetenerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtTiempoNormalActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
