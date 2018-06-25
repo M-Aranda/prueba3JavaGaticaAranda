@@ -236,23 +236,21 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
-                      <Component id="spnMinutosADormir" min="-2" pref="138" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="119" max="32767" attributes="0"/>
+                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                      <Component id="lblMinutosAdormir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="tglBtnDormirPou" min="-2" pref="214" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="spnMinutosADormir" pref="138" max="32767" attributes="0"/>
+                              <Component id="btnDormir" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblMinutosAdormir" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnDespertar" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -263,25 +261,16 @@
                       <Component id="lblMinutosAdormir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="spnMinutosADormir" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="tglBtnDormirPou" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnDormir" min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnDespertar" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JToggleButton" name="tglBtnDormirPou">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Dormir a su mascota"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tglBtnDormirPouActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JSpinner" name="spnMinutosADormir">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
@@ -296,6 +285,22 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Minutos a dormir"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDormir">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dormir a su mascota"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDormirActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnDespertar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Despertar a su mascota"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDespertarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -459,11 +464,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\XZeromarxPC\Documents\NetBeansProjects\prueba3JavaGaticaAranda\dogComiendo.gif"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

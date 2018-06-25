@@ -72,6 +72,7 @@ public class App extends javax.swing.JFrame {
         tiempoNormal = true;
         hGifDog = new GifDog();
         hGifDog.start();
+        btnDespertar.setVisible(false);
 
     }
 
@@ -111,9 +112,10 @@ public class App extends javax.swing.JFrame {
         lblDog = new javax.swing.JLabel();
         tbdPaneOpciones = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
-        tglBtnDormirPou = new javax.swing.JToggleButton();
         spnMinutosADormir = new javax.swing.JSpinner();
         lblMinutosAdormir = new javax.swing.JLabel();
+        btnDormir = new javax.swing.JButton();
+        btnDespertar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btnJugar = new javax.swing.JButton();
         btnCorrer = new javax.swing.JButton();
@@ -182,36 +184,41 @@ public class App extends javax.swing.JFrame {
 
         tbdPaneOpciones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        tglBtnDormirPou.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tglBtnDormirPou.setText("Dormir a su mascota");
-        tglBtnDormirPou.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tglBtnDormirPouActionPerformed(evt);
-            }
-        });
-
         spnMinutosADormir.setModel(new javax.swing.SpinnerNumberModel(10, 10, 480, 1));
 
         lblMinutosAdormir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMinutosAdormir.setText("Minutos a dormir");
 
+        btnDormir.setText("Dormir a su mascota");
+        btnDormir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDormirActionPerformed(evt);
+            }
+        });
+
+        btnDespertar.setText("Despertar a su mascota");
+        btnDespertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDespertarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(168, Short.MAX_VALUE)
+                .addComponent(lblMinutosAdormir)
+                .addGap(165, 165, 165))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(157, 157, 157)
-                .addComponent(spnMinutosADormir, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(tglBtnDormirPou, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(lblMinutosAdormir)
-                        .addGap(165, 165, 165))))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(spnMinutosADormir, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addComponent(btnDormir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDespertar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +227,11 @@ public class App extends javax.swing.JFrame {
                 .addComponent(lblMinutosAdormir)
                 .addGap(18, 18, 18)
                 .addComponent(spnMinutosADormir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tglBtnDormirPou, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(btnDormir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDespertar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         tbdPaneOpciones.addTab("Energía", jPanel5);
@@ -286,8 +295,6 @@ public class App extends javax.swing.JFrame {
                 btnSeleccionarComidaActionPerformed(evt);
             }
         });
-
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\XZeromarxPC\\Documents\\NetBeansProjects\\prueba3JavaGaticaAranda\\dogComiendo.gif")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -491,7 +498,7 @@ public class App extends javax.swing.JFrame {
 
                 case 1:
                     barHambre.setValue(barHambre.getValue() + 1000);
-                    
+
                     break;
                 case 2:
                     barHambre.setValue(barHambre.getValue() + 5000);
@@ -527,7 +534,7 @@ public class App extends javax.swing.JFrame {
                     barHambre.setValue(barHambre.getValue() + 50);
                     break;
             }
-            
+
         }
 
     }//GEN-LAST:event_btnSeleccionarComidaActionPerformed
@@ -611,20 +618,6 @@ public class App extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEjercitarActionPerformed
 
-    private void tglBtnDormirPouActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglBtnDormirPouActionPerformed
-        try {
-            minutosADormir = Integer.parseInt(String.valueOf(spnMinutosADormir.getValue()));
-            pouDormido = true;
-            cuentaSegundos.resumir();
-
-        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Debe seleccionar un numero entero entre 10 y 480");
-
-        }
-
-
-    }//GEN-LAST:event_tglBtnDormirPouActionPerformed
-
     private void rbtTiempoRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTiempoRapidoActionPerformed
         detenerHilosNormales();
         reanudarHilosRapidos();
@@ -638,6 +631,23 @@ public class App extends javax.swing.JFrame {
         reanudarHilosNormales();
         tiempoNormal = true;
     }//GEN-LAST:event_rbtTiempoNormalActionPerformed
+
+    private void btnDormirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDormirActionPerformed
+        try {
+            minutosADormir = Integer.parseInt(String.valueOf(spnMinutosADormir.getValue()));
+            pouDormido = true;
+            cuentaSegundos.resumir();
+            btnDespertar.setVisible(true);
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Debe seleccionar un numero entero entre 10 y 480");
+
+        }
+    }//GEN-LAST:event_btnDormirActionPerformed
+
+    private void btnDespertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDespertarActionPerformed
+        cuentaSegundos.despertar();
+        btnDespertar.setVisible(false);
+    }//GEN-LAST:event_btnDespertarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -684,6 +694,8 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JProgressBar barHambre;
     private javax.swing.JProgressBar barSalud;
     private javax.swing.JButton btnCorrer;
+    private javax.swing.JButton btnDespertar;
+    private javax.swing.JButton btnDormir;
     private javax.swing.JButton btnEjercitar;
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnSeleccionarComida;
@@ -709,7 +721,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.ButtonGroup rbtgTiempos;
     private javax.swing.JSpinner spnMinutosADormir;
     private javax.swing.JTabbedPane tbdPaneOpciones;
-    private javax.swing.JToggleButton tglBtnDormirPou;
     // End of variables declaration//GEN-END:variables
 
     private void iniciarRetomarInformacion() throws FileNotFoundException, IOException {
@@ -1005,6 +1016,10 @@ public class App extends javax.swing.JFrame {
                 cerrojo.notifyAll();
             }
 
+        }
+
+        public void despertar() {
+            pouDormido = false;
         }
     }
 
@@ -1490,9 +1505,9 @@ public class App extends javax.swing.JFrame {
         @Override
         public void run() {
             while (true) {
-                if (tglBtnDormirPou.isSelected()) {
+                if (pouDormido) {
                     lblDog.setIcon(new ImageIcon("dogDurmiendo.gif"));
-                } else {
+                } else if (!pouDormido) {
                     lblDog.setIcon(new ImageIcon("dogNormal.gif"));
                 }
                 try {
